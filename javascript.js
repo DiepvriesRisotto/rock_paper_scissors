@@ -1,24 +1,3 @@
-/*function game() {
-    for (let i = 0; i < 5; i++) { //Play round 5 times.
-        //Randomly return "Rock", "Paper" or "Scissors".
-        function getComputerChoice() {
-            const choices = ["Rock", "Paper", "Scissors"]; 
-            const randomChoice = choices[Math.floor(Math.random() * choices.length)];
-            return randomChoice;
-        }
-        //Asks player choice
-        const playerSelection = prompt("Please choose rock, paper or scissors.");
-        const computerSelection = getComputerChoice();
-        playRound(playerSelection, computerSelection);        
-    }    
-    if (playerScore === computerScore) {
-        return "Tie!";
-    } else if (playerScore > computerScore) {
-        return "You win the game!" ;
-    } else {
-        return "The computer wins the game!" ;
-    }
-}*/
 
 function getComputerChoice() {
     const choices = ["Rock", "Paper", "Scissors"]; 
@@ -52,10 +31,35 @@ function playRound(playerSelection, computerSelection) {
         playerScore++;
         //console.log("You win! " + playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase() + " wins from " + computerSelection + "! Player score = " + playerScore + " Computer score = " + computerScore);
         result.textContent = "You win! " + playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase() + " wins from " + computerSelection + "! Player score = " + playerScore + " Computer score = " + computerScore
-    }        
+    }
+
+    if (playerScore === 5 || computerScore === 5) {
+        document.getElementById("btnRock").removeEventListener("click", playRock);
+        document.getElementById("btnPaper").removeEventListener("click", playPaper);
+        document.getElementById("btnScissors").removeEventListener("click", playScissors);
+        if (playerScore === 5) {
+            result.textContent = "You win the game! Player score = " + playerScore + " Computer score = " + computerScore; 
+        } else if (computerScore === 5) {
+            result.textContent = "You lose the game! Player score = " + playerScore + " Computer score = " + computerScore;
+        }
+    }
+
 }
 
-document.getElementById("btnRock").addEventListener("click", () => playRound("rock", getComputerChoice()));
-document.getElementById("btnPaper").addEventListener("click", () => playRound("paper", getComputerChoice()));
-document.getElementById("btnScissors").addEventListener("click", () => playRound("scissors", getComputerChoice()));
+function playRock () {
+    playRound("rock", getComputerChoice());
+}
+
+function playPaper () {
+    playRound("paper", getComputerChoice());
+}
+
+function playScissors () {
+    playRound("scissors", getComputerChoice());
+}
+
+
+document.getElementById("btnRock").addEventListener("click", playRock);
+document.getElementById("btnPaper").addEventListener("click", playPaper);
+document.getElementById("btnScissors").addEventListener("click", playScissors);
     
